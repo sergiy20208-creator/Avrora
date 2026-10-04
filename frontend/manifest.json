@@ -1,0 +1,10 @@
+{
+  "name": "Avrora AI Video Editor",
+  "short_name": "Avrora",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a12",
+  "theme_color": "#0a0a12",
+  "description": "Mobile-first AI video editor with subtitles, silence removal, and export.",
+  "icons": []
+}

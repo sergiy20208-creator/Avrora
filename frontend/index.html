@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0a12" />
+    <title>Avrora</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI VIDEO EDITOR</p>
+          <h1>Avrora</h1>
+        </div>
+        <button id="newProjectBtn" class="primary-btn">+ Новий проєкт</button>
+        <input id="videoUploadInput" type="file" accept="video/mp4,video/quicktime,video/webm,video/x-matroska" hidden />
+      </header>
+
+      <main class="content">
+        <section class="projects-panel">
+          <h2>Мої проєкти</h2>
+          <p id="projectStatus" role="status"></p>
+          <div id="projectList" class="project-grid"></div>
+        </section>
+
+        <section id="editorPanel" class="editor-panel hidden">
+          <section class="transcription-panel" aria-labelledby="transcriptionHeading">
+            <h2 id="transcriptionHeading">Субтитри Whisper</h2>
+            <p class="muted">Розпізнавання на вашому комп’ютері. Під час першого запуску завантажується модель — це може тривати кілька хвилин.</p>
+            <div class="transcription-controls">
+              <label for="transcriptionLanguage">Мова відео</label>
+              <select id="transcriptionLanguage">
+                <option value="auto">Визначити автоматично</option>
+                <option value="uk">Українська</option>
+                <option value="en">Англійська</option>
+                <option value="pl">Польська</option>
+                <option value="de">Німецька</option>
+                <option value="fr">Французька</option>
+                <option value="es">Іспанська</option>
+                <option value="ru">Російська</option>
+              </select>
+              <fieldset class="subtitle-font-controls">
+                <legend>Оформлення субтитрів</legend>
+                <label for="subtitleFontSelect">Шрифт</label>
+                <select id="subtitleFontSelect"></select>
+                <label for="subtitleWeightSelect">Насиченість</label>
+                <select id="subtitleWeightSelect"></select>
+                <div id="subtitleFontPreview" class="subtitle-font-preview" aria-label="Зразок субтитрів"><span>Привіт!</span> Це ваші субтитри</div>
+                <button id="fontLibraryBtn" class="secondary-btn" type="button">Бібліотека шрифтів</button>
+                <small class="muted">Можна змінити й після розпізнавання. SRT зберігає лише текст і час.</small>
+              </fieldset>
+              <button id="transcribeBtn" class="primary-btn" disabled>Розпізнати мовлення</button>
+              <a id="downloadSrt" class="download-link hidden" download>Завантажити SRT</a>
+            </div>
+            <p id="transcriptionStatus" role="status" aria-live="polite"></p>
+            <progress id="transcriptionProgress" class="hidden" max="100" aria-label="Прогрес розпізнавання"></progress>
+            <div id="transcriptSegments" class="transcript-segments" aria-label="Текст із часовими мітками"></div>
+          </section>
+
+          <div class="right-column">
+            <div class="video-stage">
+              <video id="videoPlayer" controls playsinline preload="metadata"></video>
+              <div class="video-overlay">
+                <div class="subtitle-box" id="subtitleOverlay"></div>
+              </div>
+            </div>
+
+            <div class="player-bar">
+              <span id="currentTime">00:00</span>
+              <div class="timeline-shell">
+                <div class="timeline-track">
+                  <div id="playhead" class="playhead"></div>
+                </div>
+              </div>
+              <span id="durationLabel">00:00</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="fontLibraryModal" class="font-modal hidden" aria-hidden="true">
+      <div class="font-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="fontLibraryTitle">
+        <div class="font-modal__header">
+          <h3 id="fontLibraryTitle">Шрифти</h3>
+          <button id="closeFontLibrary" class="icon-btn" type="button" aria-label="Закрити вікно шрифтів">✕</button>
+        </div>
+        <div class="font-modal__toolbar">
+          <input id="fontSearch" type="search" placeholder="Пошук шрифту..." aria-label="Пошук шрифту" />
+          <button id="favoriteFontToggle" class="icon-btn" type="button" aria-label="Додати до обраного" title="Додати до обраного">☆</button>
+        </div>
+        <div id="fontWeightPicker" class="font-weight-picker" aria-label="Вага шрифту"></div>
+        <div id="fontList" class="font-list" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <script src="/js/config/fonts.js"></script>
+    <script src="/js/font-loader.js"></script>
+    <script src="/js/font-library.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/player.js"></script>
+    <script src="/js/subtitles.js"></script>
+    <script src="/js/timeline.js"></script>
+    <script src="/js/silence.js"></script>
+    <script src="/js/reels.js"></script>
+    <script src="/js/export.js"></script>
+  </body>
+</html>
